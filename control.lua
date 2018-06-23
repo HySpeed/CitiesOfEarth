@@ -20,6 +20,23 @@ script.on_event( defines.events.on_player_created,     function(event) show_city
 script.on_event( defines.events.on_player_joined_game, function(event) show_city_choices(event) end)
 script.on_event( defines.events.on_player_respawned,   function(event) show_city_choices(event) end)
 
+function build_city_list()
+  global.coe = {["cities"] = {}}
+  table.insert(global.coe.cities, create_city("Beijing",25000,-10000))
+  table.insert(global.coe.cities, create_city("Cairo",4500,-6300))
+  table.insert(global.coe.cities, create_city("Delhi",16000,-7000))
+  table.insert(global.coe.cities, create_city("Edmonton",-27000,-14000))
+  table.insert(global.coe.cities, create_city("Lagos",0,0))
+  table.insert(global.coe.cities, create_city("Los Angeles",-30000,-9000))
+  table.insert(global.coe.cities, create_city("Omsk",20000,-14000))
+  table.insert(global.coe.cities, create_city("Mexico City",-26000,-5000))
+  table.insert(global.coe.cities, create_city("Moscow",7000,-14000))
+  table.insert(global.coe.cities, create_city("New York",-20000,-9000))
+  table.insert(global.coe.cities, create_city("Paris",-2000,-10000))
+  table.insert(global.coe.cities, create_city("Sao Paulo",-12000,5000))
+  table.insert(global.coe.cities, create_city("Sydney",30000,8000))
+end
+
 function on_gui_click(event)
   local player = game.players[event.player_index]
   local element = event.element
@@ -74,23 +91,6 @@ function chart_and_generate(player, city)
   player.force.chart(player.surface, {{city.x-CHART_AREA, city.y-CHART_AREA}, {city.x+CHART_AREA, city.y+CHART_AREA}})
   GenerateStartingResources(player.surface, city)
   city.resgen = true
-end
-
-function build_city_list()
-  global.coe = {["cities"] = {}}
-  table.insert(global.coe.cities, create_city("Beijing",25000,-10000))
-  table.insert(global.coe.cities, create_city("Cairo",4500,-6300))
-  table.insert(global.coe.cities, create_city("Delhi",16000,-7000))
-  table.insert(global.coe.cities, create_city("Edmonton",-27000,-14000))
-  table.insert(global.coe.cities, create_city("Lagos",0,0))
-  table.insert(global.coe.cities, create_city("Los Angeles",-30000,-9000))
-  table.insert(global.coe.cities, create_city("Omsk",20000,-14000))
-  table.insert(global.coe.cities, create_city("Mexico City",-26000,-5000))
-  table.insert(global.coe.cities, create_city("Moscow",7000,-14000))
-  table.insert(global.coe.cities, create_city("New York",-20000,-9000))
-  table.insert(global.coe.cities, create_city("Paris",-2000,-10000))
-  table.insert(global.coe.cities, create_city("Sao Paulo",-12000,5000))
-  table.insert(global.coe.cities, create_city("Sydney",30000,8000))
 end
 
 function create_city(name, x, y)

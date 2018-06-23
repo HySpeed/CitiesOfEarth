@@ -53,7 +53,7 @@ function chart_and_generate(player, city)
   local surface = player.surface
   surface.request_to_generate_chunks({city.x, city.y}, 6)
   surface.force_generate_chunk_requests()
-  force.chart(player.surface, {{city.x-CHART_AREA, city.y-CHART_AREA}, {city.x+CHART_AREA, city.y+CHART_AREA}})
+  player.force.chart(player.surface, {{city.x-CHART_AREA, city.y-CHART_AREA}, {city.x+CHART_AREA, city.y+CHART_AREA}})
 
   GenerateStartingResources(surface, city)
   city.resgen = true -- mark resources as generated

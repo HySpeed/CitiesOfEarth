@@ -31,6 +31,9 @@ Teleport to these major city areas (for scale 1 NORMAL map)
 
 Note: Large map multiplies all values by 2.
 
+v0.1.1
++ moved internal city list
++ Added resource creation at each spawn on first teleport
 
 Helpful commands:
 * chart around player for 500

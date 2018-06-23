@@ -1,7 +1,6 @@
 -- oarc_utils_coe.lua
--- Nov 2016 / June 2018
 -- 
--- general purpose utility functions for factorio
+-- general purpose utility functions for factorio from oarc
 -- customized / simplified for Cities Of Earth
 
 --------------------------------------------------------------------------------
@@ -18,8 +17,7 @@ function GenerateStartingResources(surface, city)
   RemoveInCircle(surface, cityArea, "cliff", city, ENFORCE_LAND_AREA_TILE_DIST+5)
   RemoveDecorationsArea(surface, cityArea)
    
-  CreateWaterStrip(surface, {x=city.x+WATER_SPAWN_OFFSET_X, y=city.y+WATER_SPAWN_OFFSET_Y  }, WATER_SPAWN_LENGTH)
-  CreateWaterStrip(surface, {x=city.x+WATER_SPAWN_OFFSET_X, y=city.y+WATER_SPAWN_OFFSET_Y+1}, WATER_SPAWN_LENGTH)
+  CreateWaterStrip(surface, {x=city.x+WATER_SPAWN_OFFSET_X, y=city.y+WATER_SPAWN_OFFSET_Y  }, WATER_SPAWN_LENGTH, WATER_SPAWN_WIDTH)
 
   -- Generate oil patches
   oil_patch_x=city.x+START_RESOURCE_OIL_POS_X
@@ -56,11 +54,13 @@ function GenerateStartingResources(surface, city)
 end
 
 -- Create a horizontal line of water
-function CreateWaterStrip(surface, leftPos, length)
+function CreateWaterStrip(surface, leftPos, length, width)
   local waterTiles = {}
-  for i=0,length,1 do
-      table.insert(waterTiles, {name = "water", position={leftPos.x+i,leftPos.y}})
-  end
+  for w = 0, width, 1 do
+    for l = 0, length, 1 do
+      table.insert(waterTiles, {name = "water", position={leftPos.x+l,leftPos.y+w}})
+    end
+  end  
   surface.set_tiles(waterTiles)
 end 
 
@@ -107,9 +107,14 @@ function RemoveAliens(surface, city)
 end
 
 function RemoveAliensInArea(surface, area)
+  local removed = false
   for _, entity in pairs(surface.find_entities_filtered{area = area, force = "enemy"}) do
     entity.destroy()
+    removed = true
   end
+  if (removed == true) then
+    game.print( {"coe.removed-aliens-message"} )
+  end  
 end
 
 -- Make an area safer

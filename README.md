@@ -31,6 +31,25 @@ Teleport to these major city areas (for scale 1 NORMAL map)
 
 Note: Large map multiplies all values by 2.
 
+todo:
++ Document & adjust spawn points for small vs large map
+
+bugs:
++ I have seen where adding & removing cities in settings requires deleting mod-settings.dat for the changes to appear correctly.
+
+v0.1.2
++ Added control button to open city list
++ (no longer opens city list automatically at spawn / join)
++ Build city list from mod settings.lua
++ Added city list to settings.lua
++ Changed teleport to use {} (absolute vs relative)
++ Added icon for control button
++ Added error info check if factorio world initial spawn does not match expected cities of earth initial spawn
++ Split out data & gui from control
++ Added telport wobble to reduce spawn-inside-player conflict
++ Added remove aliens
++ increased chunk gen area from 2 to 6
+
 v0.1.1
 + moved internal city list
 + Added resource creation at each spawn on first teleport

@@ -37,6 +37,9 @@ todo:
 bugs:
 + I have seen where adding & removing cities in settings requires deleting mod-settings.dat for the changes to appear correctly.
 
+v0.1.3
++ Remove aliens with every teleport
+
 v0.1.2
 + Added control button to open city list
 + (no longer opens city list automatically at spawn / join)

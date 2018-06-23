@@ -37,6 +37,7 @@ function select_city(event, player, frame)
     chart_and_generate(player, city)
   end
 
+  RemoveAliens(player.surface, city)
   player.teleport({city.x+GetRandomAmount(SPAWN_WOBBLE), city.y+GetRandomAmount(SPAWN_WOBBLE)})
 end
 
@@ -49,12 +50,11 @@ function print_choice(player, city)
 end
 
 function chart_and_generate(player, city)
-  -- Chart the area
-  player.surface.request_to_generate_chunks({city.x, city.y}, 6)
-  player.surface.force_generate_chunk_requests()
-  player.force.chart(player.surface, {{city.x-CHART_AREA, city.y-CHART_AREA}, {city.x+CHART_AREA, city.y+CHART_AREA}})
+  local surface = player.surface
+  surface.request_to_generate_chunks({city.x, city.y}, 6)
+  surface.force_generate_chunk_requests()
+  force.chart(player.surface, {{city.x-CHART_AREA, city.y-CHART_AREA}, {city.x+CHART_AREA, city.y+CHART_AREA}})
 
-  GenerateStartingResources(player.surface, city)
-  RemoveAliens(player.surface, city)
+  GenerateStartingResources(surface, city)
   city.resgen = true -- mark resources as generated
 end

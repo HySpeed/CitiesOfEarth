@@ -32,10 +32,13 @@ Teleport to these major city areas (for scale 1 NORMAL map)
 Note: Large map multiplies all values by 2.
 
 todo:
-+ Document & adjust spawn points for small vs large map
 
 bugs:
 + I have seen where adding & removing cities in settings requires deleting mod-settings.dat for the changes to appear correctly.
+
+v0.1.4
++ Increased water to 4 wide so pumps display correctly
++ Added message when alens are destroyed
 
 v0.1.3
 + Remove aliens with every teleport
@@ -74,3 +77,7 @@ Helpful commands:
 
 * speed up the game for mapping and moving during testing
 + /c game.speed=10
+
+* add items to the player's inventory:
++ /c game.player.insert{ name="grenade", count=10}
++ /c game.player.insert{ name="offshore-pump", count=1}

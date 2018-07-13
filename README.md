@@ -37,6 +37,7 @@ bugs:
 + I have seen where adding & removing cities in settings requires deleting mod-settings.dat for the changes to appear correctly.
 
 v0.1.6
++ Fixed version
 
 v0.1.5
 + Changed requirements to Factorio World 0.16.1

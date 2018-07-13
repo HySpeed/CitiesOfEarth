@@ -36,6 +36,10 @@ todo:
 bugs:
 + I have seen where adding & removing cities in settings requires deleting mod-settings.dat for the changes to appear correctly.
 
+v0.1.5
++ Changed requirements to Factorio World 0.16.1
++ + If this isn't available on the mod portal, see https://github.com/TheOddler/FactorioWorld
+
 v0.1.4
 + Increased water to 4 wide so pumps display correctly
 + Added message when alens are destroyed

@@ -36,6 +36,9 @@ todo:
 bugs:
 + I have seen where adding & removing cities in settings requires deleting mod-settings.dat for the changes to appear correctly.
 
+v0.1.7
++ Added 'Teleport to Player' ability
+
 v0.1.6
 + Fixed version
 

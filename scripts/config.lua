@@ -9,7 +9,7 @@
 CHUNK_SIZE = 32
 ENFORCE_LAND_AREA_TILE_DIST = CHUNK_SIZE * 4
 CHART_AREA = 200
-SPAWN_WOBBLE = 4 -- a small amount of variance for teleport
+TELEPORT_WOBBLE = 4 -- a small amount of variance for teleport
 
 -- Start resource amounts (per tile/oil spot)
 START_COAL_AMOUNT    = 1500
@@ -28,7 +28,7 @@ ENABLE_RESOURCE_SHAPE_CIRCLE = true
 WATER_SPAWN_OFFSET_X =  -4
 WATER_SPAWN_OFFSET_Y = -30
 WATER_SPAWN_LENGTH   =   8
-WATER_SPAWN_WIDTH    =   3
+WATER_SPAWN_WIDTH    =   6
 
 START_RESOURCE_STONE_POS_X = -27
 START_RESOURCE_STONE_POS_Y = -30

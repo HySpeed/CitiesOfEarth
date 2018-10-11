@@ -19,38 +19,39 @@ function GenerateStartingResources(surface, city)
    
   CreateWaterStrip(surface, {x=city.x+WATER_SPAWN_OFFSET_X, y=city.y+WATER_SPAWN_OFFSET_Y  }, WATER_SPAWN_LENGTH, WATER_SPAWN_WIDTH)
 
-  -- Generate oil patches
-  oil_patch_x=city.x+START_RESOURCE_OIL_POS_X
-  oil_patch_y=city.y+START_RESOURCE_OIL_POS_Y
-  for i=1,START_RESOURCE_OIL_NUM_PATCHES do
-      surface.create_entity({name="crude-oil", amount=START_OIL_AMOUNT, position={oil_patch_x, oil_patch_y}})
-      oil_patch_x=oil_patch_x+START_RESOURCE_OIL_X_OFFSET
-      oil_patch_y=oil_patch_y+START_RESOURCE_OIL_Y_OFFSET
-  end
 
+
+  
+  -- Generate oil patches
+  local pos_x=city.x+START_RESOURCE_OIL_POS_X
+  local pos_y=city.y+START_RESOURCE_OIL_POS_Y
+  GenerateOilPatch(surface, "crude-oil", pos_x, pos_y, START_OIL_AMOUNT)
+
+  local resourcePos
+  
   -- Generate stone
-  local stonePos = {x=city.x+START_RESOURCE_STONE_POS_X, y=city.y+START_RESOURCE_STONE_POS_Y}
-  GenerateResourcePatch(surface, "stone", START_RESOURCE_STONE_SIZE, stonePos, START_STONE_AMOUNT)
+  resourcePos = {x=city.x+START_RESOURCE_STONE_POS_X, y=city.y+START_RESOURCE_STONE_POS_Y}
+  GenerateResourcePatch(surface, "stone", START_RESOURCE_STONE_SIZE, resourcePos, START_STONE_AMOUNT)
 
   -- Generate coal
-  local coalPos = {x=city.x+START_RESOURCE_COAL_POS_X, y=city.y+START_RESOURCE_COAL_POS_Y}
-  GenerateResourcePatch(surface, "coal", START_RESOURCE_COAL_SIZE, coalPos, START_COAL_AMOUNT)
+  resourcePos = {x=city.x+START_RESOURCE_COAL_POS_X, y=city.y+START_RESOURCE_COAL_POS_Y}
+  GenerateResourcePatch(surface, "coal", START_RESOURCE_COAL_SIZE, resourcePos, START_COAL_AMOUNT)
 
   -- Generate copper ore
-  local copperOrePos = {x=city.x+START_RESOURCE_COPPER_POS_X, y=city.y+START_RESOURCE_COPPER_POS_Y}
-  GenerateResourcePatch(surface, "copper-ore", START_RESOURCE_COPPER_SIZE, copperOrePos, START_COPPER_AMOUNT)
+  resourcePos = {x=city.x+START_RESOURCE_COPPER_POS_X, y=city.y+START_RESOURCE_COPPER_POS_Y}
+  GenerateResourcePatch(surface, "copper-ore", START_RESOURCE_COPPER_SIZE, resourcePos, START_COPPER_AMOUNT)
 
   -- Generate iron ore
-  local ironOrePos = {x=city.x+START_RESOURCE_IRON_POS_X, y=city.y+START_RESOURCE_IRON_POS_Y}
-  GenerateResourcePatch(surface, "iron-ore", START_RESOURCE_IRON_SIZE, ironOrePos, START_IRON_AMOUNT)
+  resourcePos = {x=city.x+START_RESOURCE_IRON_POS_X, y=city.y+START_RESOURCE_IRON_POS_Y}
+  GenerateResourcePatch(surface, "iron-ore", START_RESOURCE_IRON_SIZE, resourcePos, START_IRON_AMOUNT)
 
   -- Generate uranium
-  local uraniumOrePos = {x=city.x+START_RESOURCE_URANIUM_POS_X, y=city.y+START_RESOURCE_URANIUM_POS_Y}
-  GenerateResourcePatch(surface, "uranium-ore", START_RESOURCE_URANIUM_SIZE, uraniumOrePos, START_URANIUM_AMOUNT)
+  resourcePos = {x=city.x+START_RESOURCE_URANIUM_POS_X, y=city.y+START_RESOURCE_URANIUM_POS_Y}
+  GenerateResourcePatch(surface, "uranium-ore", START_RESOURCE_URANIUM_SIZE, resourcePos, START_URANIUM_AMOUNT)
 
   -- Tree generation is needed
-  local treePos = {x=city.x+START_RESOURCE_TREE_POS_X, y=city.y+START_RESOURCE_TREE_POS_Y}
-  GenerateResourcePatch(surface, "tree-02", START_RESOURCE_TREE_SIZE, treePos, START_TREE_AMOUNT)
+  resourcePos = {x=city.x+START_RESOURCE_TREE_POS_X, y=city.y+START_RESOURCE_TREE_POS_Y}
+  GenerateResourcePatch(surface, "tree-02", START_RESOURCE_TREE_SIZE, resourcePos, START_TREE_AMOUNT)
 end
 
 -- Create a horizontal line of water
@@ -64,29 +65,45 @@ function CreateWaterStrip(surface, leftPos, length, width)
   surface.set_tiles(waterTiles)
 end 
 
--- Function to generate a resource patch, of a certain size/amount at a pos.
+-- Generate an oil patch, of a certain size/amount at a pos.
+function GenerateOilPatch(surface, resourceName, pos_x, pos_y, amount)
+  if game.entity_prototypes[resourceName] then
+    for i=1,START_RESOURCE_OIL_NUM_PATCHES do
+      surface.create_entity({name=resourceName, amount=amount, position={pos_x, pos_y}})
+      pos_x = pos_x+START_RESOURCE_OIL_X_OFFSET
+      pos_y = pos_y+START_RESOURCE_OIL_Y_OFFSET
+    end
+  end
+end  
+
+
+-- Generate a resource patch, of a certain size/amount at a pos.
 function GenerateResourcePatch(surface, resourceName, diameter, pos, amount)
-  local midPoint = math.floor(diameter/2)
-  if (diameter > 0) then
-    for y=0, diameter do
-      for x=0, diameter do
-        if (not ENABLE_RESOURCE_SHAPE_CIRCLE or ((x-midPoint)^2 + (y-midPoint)^2 < midPoint^2)) then
-          surface.create_entity({name=resourceName, amount=amount, position={pos.x+x, pos.y+y}})
+  if game.entity_prototypes[resourceName] then
+    local midPoint = math.floor(diameter/2)
+    if (diameter > 0) then
+      for y=0, diameter do
+        for x=0, diameter do
+          if (not ENABLE_RESOURCE_SHAPE_CIRCLE or ((x-midPoint)^2 + (y-midPoint)^2 < midPoint^2)) then
+            surface.create_entity({name=resourceName, amount=amount, position={pos.x+x, pos.y+y}})
+          end
         end
       end
     end
-  end
+  end  
 end
 
 -- Removes the entity type from the area given
 -- Only if it is within given distance from given position.
 function RemoveInCircle(surface, area, type, pos, dist)
-  for key, entity in pairs(surface.find_entities_filtered({area=area, type=type})) do
-    if entity.valid and entity and entity.position then
-      if ((pos.x - entity.position.x)^2 + (pos.y - entity.position.y)^2 < dist^2) then
-        entity.destroy()
+  if game.entity_prototypes[type] then
+    for key, entity in pairs(surface.find_entities_filtered({area=area, type=type})) do
+      if entity.valid and entity and entity.position then
+        if ((pos.x - entity.position.x)^2 + (pos.y - entity.position.y)^2 < dist^2) then
+          entity.destroy()
+        end
       end
-    end
+    end  
   end
 end
 

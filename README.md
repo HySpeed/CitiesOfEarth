@@ -36,6 +36,10 @@ todo:
 bugs:
 + I have seen where adding & removing cities in settings requires deleting mod-settings.dat for the changes to appear correctly.
 
+v0.1.8
++ bug: Added checks for resources before attempting to create them
++ + This is to prevent errors with mods that remove or rename basic resources.  I will not adding support for alternate resources.
+
 v0.1.7
 + Added 'Teleport to Player' ability
 

@@ -34,7 +34,6 @@ function create_button_show_targets(player)
       sprite = "show_targets_list",
       tooltip = {"coe-tooltip.button-show-targets"}
     })
-    button.style.visible = true
   end
 end
 

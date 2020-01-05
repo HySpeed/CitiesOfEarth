@@ -1,11 +1,12 @@
  # CitiesOfEarth
 A Factorio mod that adds a city areas list to Factorio World (Earth)
 
-This mod requires Factorio World (Earth) (v0.16.1+)  and that the initial spawn point be in west Africa.  The city locations are based on a 0,0 point of 2100, 900.
+This mod requires Factorio World (Earth) (v0.16.1+)  and that the initial spawn point be in west Africa.  The city locations are based on a 0,0 point of 2160, 960.
 
 In order to prevent the map from wrapping, these are some world size limitations to use:
 + Size: 1 - normal, Max X:  4000, Max Y:   1900
 + Size: 2 - normal, Max X:  8000, Max Y:   3800
++ Size: 4 - normal, Max X: 16000, Max Y:   7600
 + Size: 6 - normal, Max X: 24000, Maxy Y: 11000
 + Size: 10 - large, Max X: 80000, Max Y:  38000
 + Spawn_X: 2160, Spawn_Y: 960
@@ -36,8 +37,11 @@ todo:
 bugs:
 + I have seen where adding & removing cities in settings requires deleting mod-settings.dat for the changes to appear correctly.
 
+v0.1.9
++ Updated to Factorio 0.17.
+
 v0.1.8
-+ bug: Added checks for resources before attempting to create them
++ bug: Added checks for resources before attempting to create them.
 + + This is to prevent errors with mods that remove or rename basic resources.  I will not adding support for alternate resources.
 
 v0.1.7

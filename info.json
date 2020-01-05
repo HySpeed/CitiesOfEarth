@@ -1,11 +1,11 @@
 {
     "name": "CitiesOfEarth",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "title": "Cities Of Earth",
     "author": "hyspeed",
     "contact": "hyspeed_games@yahoo.com",
     "homepage": "https://github.com/hyspeed/CitiesOfEarth",
-    "factorio_version": "0.16",
-    "dependencies": ["base >= 0.16", "factorio-world >= 0.16.1" ],
+    "factorio_version": "0.17",
+    "dependencies": ["base >= 0.17", "factorio-world >= 0.17.0" ],
     "description": "This mod presents a list of areas to spawn on Earth.  Resources are generated at each spawn."
 }

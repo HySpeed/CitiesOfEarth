@@ -136,7 +136,7 @@ end
 
 -- Make an area safer
 -- Reduction factor divides the enemy spawns by that number. 2 = half, 3 = third, etc...
--- Also removes all big and huge worms in that area
+-- Also removes larger worms in that area
 function ReduceAliensInArea(surface, area, reductionFactor)
   for _, entity in pairs(surface.find_entities_filtered{area = area, force = "enemy"}) do
     if (math.random(0,reductionFactor) > 0) then
@@ -149,6 +149,9 @@ function ReduceAliensInArea(surface, area, reductionFactor)
     entity.destroy()
   end
   for _, entity in pairs(surface.find_entities_filtered{area = area, name = "big-worm-turret"}) do
+    entity.destroy()
+  end
+  for _, entity in pairs(surface.find_entities_filtered{area = area, name = "behemoth-worm-turret"}) do
     entity.destroy()
   end
 end

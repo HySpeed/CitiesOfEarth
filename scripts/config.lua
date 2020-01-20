@@ -1,5 +1,4 @@
 -- config.lua
--- Jun 2018
 -- Configuration Options
 
 ---------------------------------------
@@ -12,23 +11,23 @@ CHART_AREA = 200
 TELEPORT_WOBBLE = 4 -- a small amount of variance for teleport
 
 -- Start resource amounts (per tile/oil spot)
-START_COAL_AMOUNT    = 1500
-START_IRON_AMOUNT    = 1500
-START_TREE_AMOUNT    = 1000
-START_STONE_AMOUNT   = 1000
-START_COPPER_AMOUNT  = 1500
-START_URANIUM_AMOUNT = 1000
-START_OIL_AMOUNT     = 300000
+START_COAL_AMOUNT    = 3000
+START_IRON_AMOUNT    = 5000
+START_TREE_AMOUNT    = 2000
+START_STONE_AMOUNT   = 2000
+START_COPPER_AMOUNT  = 3000
+START_URANIUM_AMOUNT = 2000
+START_OIL_AMOUNT     = 500000
 
 -- If false, it will be a square
 ENABLE_RESOURCE_SHAPE_CIRCLE = true
 
 -- Position is relative to provided location
 -- Location of water strip (horizontal)
-WATER_SPAWN_OFFSET_X =  -4
+WATER_SPAWN_OFFSET_X =  -6
 WATER_SPAWN_OFFSET_Y = -30
-WATER_SPAWN_LENGTH   =   8
-WATER_SPAWN_WIDTH    =   6
+WATER_SPAWN_LENGTH   =   14
+WATER_SPAWN_WIDTH    =   4
 
 START_RESOURCE_STONE_POS_X = -27
 START_RESOURCE_STONE_POS_Y = -30
@@ -60,7 +59,7 @@ START_RESOURCE_OIL_NUM_PATCHES = 4
 START_RESOURCE_OIL_POS_X =  5
 START_RESOURCE_OIL_POS_Y = 20
 -- How far each patch is offset from the others and in which direction
--- Default (x=0, y=-4) means that patches spawn in a vertical row downwards.
+-- Default (x=-4, y=0) builds a horizontal row.
 START_RESOURCE_OIL_X_OFFSET = -4
 START_RESOURCE_OIL_Y_OFFSET =  0
 
@@ -69,10 +68,10 @@ START_RESOURCE_OIL_Y_OFFSET =  0
 ---------------------------------------
 
 -- Safe area has no aliens
-SAFE_AREA_SIZE = CHUNK_SIZE * 7
+SAFE_AREA_SIZE = CHUNK_SIZE * 15
 
 -- Warning area has reduced aliens
-WARN_AREA_SIZE = CHUNK_SIZE * 10
+WARN_AREA_SIZE = CHUNK_SIZE * 20
 
 -- 1 : X (spawners alive : spawners destroyed) in this area
 WARN_AREA_REDUCTION_RATIO = 10

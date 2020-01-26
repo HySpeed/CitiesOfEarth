@@ -1,7 +1,8 @@
 # CitiesOfEarth
 A Factorio mod that adds a city areas list to Factorio World (Earth)
 
-This mod requires Factorio World (Earth) (v0.16.1+)  and that the initial spawn point be in west Africa.  The city locations are based on a 0,0 point of 2160, 960.
+This mod requires Factorio World (Earth) (v0.16.1+) and that the initial spawn point be in west Africa.  The city locations are based on a 0,0 point of 2160, 960.
+**When first starting a new game, there will be a long delay while all cities are initialized.**
 
 In order to prevent the map from wrapping, these are some world size limitations to use:
 + Size: 1 - normal, Max X:  4000, Max Y:   1900
@@ -36,6 +37,9 @@ Note: Large map multiplies all values by 2.
 
 ## bugs:
 + I have seen where adding & removing cities in settings requires deleting mod-settings.dat for the changes to appear correctly.
+
+v0.2.1
++ Generate resources and clear biters in all cities at start of game.  This prevents delays when starting new cities.
 
 v0.2.0
 + Added teams - non hostile.
@@ -84,9 +88,10 @@ v0.1.1
 ## Helpful commands:
 ### Charting
 * chart around player for 500
-+ /c local plr = game.player; local pos = plr.position; local rad=500; plr.force.chart(plr.surface, {{x = pos.x-rad, y = pos.y-rad}, {x = pos.x+rad, y = pos.y+rad}});
-
++ /c local player = game.player; local pos = player.position; local rad=500; player.force.chart(player.surface, {{x = pos.x-rad, y = pos.y-rad}, {x = pos.x+rad, y = pos.y+rad}});
 + /c game.player.surface.always_day=true
+  Print the object 'area':
++ /c game.print(serpent.block(event.area))
 
 ### Players
 * get player index based on name: ( /*player_index*/ == hyspeed --> 1  )
@@ -104,8 +109,9 @@ v0.1.1
 
 ### Items
 * add items to the player's inventory:
-+ /c game.player.insert{ name="grenade", count=10}
-+ /c game.player.insert{ name="offshore-pump", count=1}
++ /c game.player.insert{name="grenade", count=10}
++ /c game.player.insert{name="car", count=1}
++ /c game.player.insert{name="rocket-fuel", count=10}
 
 ### Teams
 --Creates the force "Name"

@@ -15,28 +15,31 @@
 --Sao Paulo     -650,    180
 --Sydney        1500,    400
 
-function BuildCityList()
+function BuildCities()
   global.surface = game.surfaces["nauvis"]
   global.coe = {["cities"] = {}, ["players"] = {}}
---    game.write_file("coe.log", "") -- creates empty log file
+  -- game.write_file("coe.log", "") -- creates empty log file
 
   local indexes = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"}
   local settings_global = settings.global -- cached for performance
   local city = nil
 
   for _, slot in pairs(indexes) do
-    city = ReadCity(settings_global, slot)
+    city = ReadCityFromSettings(settings_global, slot)
     if (city.name ~= nil and city.name ~= slot) then
       city = CreateCity(city)
+      GenerateCityArea(city)
       CreateForce(city)
       table.insert(global.coe.cities, city )
---    game.write_file("coe.log", city.name.."("..city.x..","..city.y..")\n", "true")
+      -- game.write_file("coe.log", city.name.."("..city.x..","..city.y..")\n", "true")
     end -- if
   end -- for
-  SetCeaseFires()
-end -- BuildCityList
 
-function ReadCity(settings_global, slot)
+  SetCeaseFires()
+end -- BuildCities
+
+-- the string of 'mod' + 'n' + 'slot' equals the array index string
+function ReadCityFromSettings(settings_global, slot)
   local city = {}
   local mod = "coe_"
   local n = "n_"
@@ -60,6 +63,7 @@ function CreateCity(city)
   end
   city.x = city.x * scale * large
   city.y = city.y * scale * large
+  city.position = {x = city.x, y = city.y}
   return city
 end -- CreateCity
 
@@ -141,3 +145,10 @@ end -- ValidSpawnSettings
 function MakeLobby()
 	game.create_surface("Lobby", { width = 96, height = 32, starting_area = "big", water = "none" })
 end -- MakeLobby
+
+-- force generation of the chunks around a city only to generate the resources
+function GenerateCityArea(city)
+  -- global.surface.request_to_generate_chunks({city.x, city.y}, 4)
+  -- global.surface.force_generate_chunk_requests()
+  GenerateStartingResources(city)
+end -- GenerateAreas

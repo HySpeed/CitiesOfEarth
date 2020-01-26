@@ -5,9 +5,9 @@
 -- Resource & Spawn Circle Options
 ---------------------------------------
 
+CHART_AREA = 200
 CHUNK_SIZE = 32
 ENFORCE_LAND_AREA_TILE_DIST = CHUNK_SIZE * 4
-CHART_AREA = 200
 TELEPORT_WOBBLE = 4 -- a small amount of variance for teleport
 
 -- Start resource amounts (per tile/oil spot)
@@ -43,7 +43,7 @@ START_RESOURCE_COAL_SIZE  =  12
 
 START_RESOURCE_IRON_POS_X =  12
 START_RESOURCE_IRON_POS_Y =  -5
-START_RESOURCE_IRON_SIZE  =  16
+START_RESOURCE_IRON_SIZE  =  24
 
 START_RESOURCE_COPPER_POS_X = -28
 START_RESOURCE_COPPER_POS_Y =   5
@@ -68,11 +68,14 @@ START_RESOURCE_OIL_Y_OFFSET =  0
 ---------------------------------------
 
 -- Safe area has no aliens
-SAFE_AREA_SIZE = CHUNK_SIZE * 15
+SAFE_AREA_SIZE = CHUNK_SIZE * 20
 
 -- Warning area has reduced aliens
 WARN_AREA_SIZE = CHUNK_SIZE * 20
 
--- 1 : X (spawners alive : spawners destroyed) in this area
-WARN_AREA_REDUCTION_RATIO = 10
+-- No large worms area
+NO_LARGE_WORMS_RADIUS = 40
+NO_LARGE_WORMS_SIZE = CHUNK_SIZE * NO_LARGE_WORMS_RADIUS
 
+-- 1 : X (spawners alive : spawners destroyed) in this area
+REDUCTION_FACTOR = 3

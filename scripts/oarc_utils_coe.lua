@@ -15,13 +15,8 @@ function GenerateStartingResources(city)
   local area = {{city.x-CHUNK_SIZE, city.y-CHUNK_SIZE}, {city.x+CHUNK_SIZE, city.y+CHUNK_SIZE}}
 
   -- Remove trees/resources inside the spawn area
-  RemoveByTypeInCircle(area, "tree",     city, ENFORCE_LAND_AREA_TILE_DIST)
-  RemoveByTypeInCircle(area, "resource", city, ENFORCE_LAND_AREA_TILE_DIST+5)
-  RemoveByTypeInCircle(area, "cliff",    city, ENFORCE_LAND_AREA_TILE_DIST+5)
+  RemoveByTypesInCircle(area, city, ENFORCE_LAND_AREA_TILE_DIST + 10)
   RemoveDecorationsArea(area)
-
-  -- Generate Water
-  CreateWaterStrip({x=city.x+WATER_SPAWN_OFFSET_X, y=city.y+WATER_SPAWN_OFFSET_Y  }, WATER_SPAWN_LENGTH, WATER_SPAWN_WIDTH)
 
   -- Generate oil patches
   local pos_x=city.x+START_RESOURCE_OIL_POS_X
@@ -53,29 +48,23 @@ function GenerateStartingResources(city)
   resourcePos = {x=city.x+START_RESOURCE_TREE_POS_X, y=city.y+START_RESOURCE_TREE_POS_Y}
   GenerateResourcePatch("tree-02", START_RESOURCE_TREE_SIZE, resourcePos, START_TREE_AMOUNT)
   city.resources_generated = true -- mark resources as generated
+
+  -- Generate Water
+  -- moved to teleport because water doesn't persist if generated here.
+--  CreateWaterStrip({x=city.x+WATER_SPAWN_OFFSET_X, y=city.y+WATER_SPAWN_OFFSET_Y}, WATER_SPAWN_LENGTH, WATER_SPAWN_WIDTH)
+
 end
 
--- Removes the entity type from the area given
+-- Removes the entity types from the area given
 -- Only if it is within given distance from given position.
-function RemoveByTypeInCircle(area, type, pos, dist)
-  for _, entity in pairs(global.surface.find_entities_filtered{area = area, type = type}) do
+function RemoveByTypesInCircle(area, pos, dist)
+  for _, entity in pairs(global.surface.find_entities_filtered{area = area, type = {"tree", "resource", "cliff"}}) do
     if entity and entity.valid and entity.position then
       if ((pos.x - entity.position.x)^2 + (pos.y - entity.position.y)^2 < dist^2) then
         entity.destroy()
       end
     end
   end
-end
-
--- Create a horizontal line of water
-function CreateWaterStrip(leftPos, length, width)
-  local waterTiles = {}
-  for w = 0, width, 1 do
-    for l = 0, length, 1 do
-      table.insert(waterTiles, {name = "water", position={leftPos.x+l,leftPos.y+w}})
-    end
-  end  
-  global.surface.set_tiles(waterTiles)
 end
 
 -- Generate an oil patch, of a certain size/amount at a pos.
@@ -104,6 +93,24 @@ function GenerateResourcePatch(resourceName, diameter, pos, amount)
     end
   end
 end
+
+-- Create a horizontal line of water - requires building a table of the positions, then calling set_tiles
+function CreateWaterStrip(city)
+  if (not city.water) then
+    local waterTiles = {}
+    for index_width = 0, WATER_SPAWN_WIDTH, 1 do
+      for index_length = 0, WATER_SPAWN_LENGTH, 1 do
+        table.insert(waterTiles, {name = "water", position={city.x+WATER_SPAWN_OFFSET_X+index_length, city.y+WATER_SPAWN_OFFSET_Y+index_width}})
+      end
+    end
+    global.surface.set_tiles(waterTiles)
+    city.water = true
+  end
+end
+
+-- /c   local waterTiles = {}   for w = 0, 14, 1 do     for l = 0, 4, 1 do       
+--   table.insert(waterTiles, {name = "water", position={-6+w,-30+l}})     end   end     game.surfaces[1].set_tiles(waterTiles)  game.print(serpent.block(waterTiles))
+
 
 function RemoveDecorationsArea(area)
   global.surface.destroy_decoratives(area)

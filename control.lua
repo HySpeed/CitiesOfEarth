@@ -53,13 +53,16 @@ end -- SelectPlayer
 
 function ChartCityArea(player, city)
   player.force.chart(global.surface, {{city.x - CHART_AREA, city.y - CHART_AREA}, {city.x + CHART_AREA, city.y + CHART_AREA}})
-  -- GenerateStartingResources(city)
 end -- ChartAndGenerateArea
 
 function TeleportToCity(player, city)
   RemoveAliens(city)
+  -- workaround because water won't persist when created earlier
+
+  CreateWaterStrip(city)
   player.teleport({city.x + GetRandomAmount(TELEPORT_WOBBLE), city.y + GetRandomAmount(TELEPORT_WOBBLE)}, global.surface)
   player.force = game.forces[city.name]
+
 end -- TeleportToCity
 
 -- When a chunk is generated, check to see if it is within a range of a city.  If so, perform alien adjustments...

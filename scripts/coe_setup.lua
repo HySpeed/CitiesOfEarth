@@ -28,9 +28,9 @@ function BuildCities()
     city = ReadCityFromSettings(settings_global, slot)
     if (city.name ~= nil and city.name ~= slot) then
       city = CreateCity(city)
-      GenerateCityArea(city)
-      CreateForce(city)
       table.insert(global.coe.cities, city )
+      CreateForce(city)
+      GenerateStartingResources(city)
       -- game.write_file("coe.log", city.name.."("..city.x..","..city.y..")\n", "true")
     end -- if
   end -- for
@@ -64,6 +64,7 @@ function CreateCity(city)
   city.x = city.x * scale * large
   city.y = city.y * scale * large
   city.position = {x = city.x, y = city.y}
+  city.water = false
   return city
 end -- CreateCity
 
@@ -75,9 +76,9 @@ end -- CreateForce
 -- loop through each force, setting cease fire with the others - needs two loops
 function SetCeaseFires()
   for _, forceOuter in pairs(game.forces) do
-    if ("enemy" ~= forceOuter.name ) then 
+    if ("enemy" ~= forceOuter.name) then 
       for  _, forceInner in pairs(game.forces) do
-        if ("enemy" ~= forceInner.name ) then
+        if ("enemy" ~= forceInner.name) then
           forceOuter.set_cease_fire(forceInner, true)
         end -- if
       end -- for
@@ -145,10 +146,3 @@ end -- ValidSpawnSettings
 function MakeLobby()
 	game.create_surface("Lobby", { width = 96, height = 32, starting_area = "big", water = "none" })
 end -- MakeLobby
-
--- force generation of the chunks around a city only to generate the resources
-function GenerateCityArea(city)
-  -- global.surface.request_to_generate_chunks({city.x, city.y}, 4)
-  -- global.surface.force_generate_chunk_requests()
-  GenerateStartingResources(city)
-end -- GenerateAreas

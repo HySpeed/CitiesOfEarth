@@ -38,6 +38,9 @@ Note: Large map multiplies all values by 2.
 ## bugs:
 + I have seen where adding & removing cities in settings requires deleting mod-settings.dat for the changes to appear correctly.
 
+v0.2.2
++ Bug fix for water generation at city
+
 v0.2.1
 + Generate resources and clear biters in all cities at start of game.  This prevents delays when starting new cities.
 
@@ -114,20 +117,20 @@ v0.1.1
 + /c game.player.insert{name="rocket-fuel", count=10}
 
 ### Teams
---Creates the force "Name"
+* Creates the force "Name"
 + /c game.create_force("Name")
 
---Sets this player to the new force
+* Sets this player to the new force
 + /c game.players["Player_name"].force = game.forces["Name"]
 
---Sets the new force ceasefire to the "other force"
+* Sets the new force ceasefire to the "other force"
 + /c game.forces["Name"].set_cease_fire("Other_force_name", true)
 
---Sets the spawn position of the force
+* Sets the spawn position of the force
 + /c game.forces["Name"].set_spawn_position({x = 10, y = 20}, game.surfaces[1])
 
---Prints the number of forces
+* Prints the number of forces
 + /c game.print(#game.forces)
 
---Prints the name of all the forces
+* Prints the name of all the forces
 + /c for name, force in pairs (game.forces) do  game.print(name) end

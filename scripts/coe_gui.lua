@@ -1,30 +1,34 @@
 --coe_gui.lua
 
-function on_gui_click(event)
-  local player = game.players[event.player_index]
+function OnGuiClick(event)
+  local player  = game.players[event.player_index]
   local element = event.element
-  local frame = element.parent
-  local ui = element.parent.parent
+  local frame   = element.parent
+  local dialog  = element.parent.parent
 
   if (element.name == "coe_button_show_targets" ) then
-    show_target_choices(event, player)
+    ShowTargetChoices(event, player)
   elseif (element.name == "coe_button_city_go") then
-    select_city(event, player, frame)
-    ui.parent.destroy()
+    SelectCity(player, frame)
+    dialog.parent.destroy()
   elseif (element.name == "coe_button_player_go") then
-    select_player(event, player, frame)
-    ui.parent.destroy()
+    SelectPlayer(player, frame)
+    dialog.parent.destroy()
   elseif (element.name == "coe_button_cancel") then
-    ui.destroy()
+    dialog.destroy()
+  elseif (element.name == "coe_button_info_close") then
+    frame.destroy()
   end
-end
+end -- OnGuiClick
 
-function on_player_joined_game(event)
+function OnPlayerCreated(event)
   local player = game.players[event.player_index]
-  create_button_show_targets(player)
-end
+  CreateButton_ShowTargets(player)
+  CreateShowInfoFrame(player)
+  player.teleport({ 0, 8 }, game.surfaces["Lobby"])
+end -- OnPlayer_JoinedGame
 
-function create_button_show_targets(player)
+function CreateButton_ShowTargets(player)
   local flow = mod_gui.get_button_flow(player)
   if (not flow.coe_button_show_targets) then
     local button = flow.add({
@@ -35,17 +39,17 @@ function create_button_show_targets(player)
       tooltip = {"coe-tooltip.button-show-targets"}
     })
   end
-end
+end -- CreateButton_ShowTargets
 
-function show_target_choices(event, player)
+function ShowTargetChoices(event, player)
   local gui = player.gui.center
   if (gui.coe_choose_target == nil) then
-    local good_spawn = is_spawn_good()
-    build_target_list_frame(gui, good_spawn)
-  end  
-end
+    local spawn_configured = IsValidSpawnSettings() -- error is displayed if setup is wrong
+    BuildTargetListFrame(gui, player, spawn_configured)
+  end -- if
+end -- ShowTargetChoices
 
-function build_target_list_frame(gui, good_spawn)
+function BuildTargetListFrame(gui, player, spawn_configured)
   local frame = gui.add({
     type = "frame",
     name = "coe_choose_target",
@@ -59,14 +63,14 @@ function build_target_list_frame(gui, good_spawn)
     name = "coe_city_and_player_flow",
     direction = "horizontal"
   })
-  
+
   local city_flow = city_and_player_flow.add({
     type = "flow",
     name = "coe_city_flow",
     direction = "vertical"
   })
-  
-  local city_names = build_city_name_list(global.coe.cities)
+
+  local city_names = BuildCityNameList(global.coe.cities)
   city_flow.add({
     type = "drop-down",
     name = "coe_cities_dropdown",
@@ -85,20 +89,23 @@ function build_target_list_frame(gui, good_spawn)
     name = "coe_player_flow",
     direction = "vertical"
   })
-  
-  local player_names = build_player_name_list()
-  player_flow.add({
-    type = "drop-down",
-    name = "coe_players_dropdown",
-    items = player_names,
-    selected_index = 1 -- 0?
-  })
 
-  player_flow.add({
-    type = "button",
-    name = "coe_button_player_go",
-    caption = {"coe.button-player-go"}
-  })
+  -- only show player list if not in 'lobby'
+  if (player.surface == global.surface) then
+    local player_names = BuildPlayerNameList()
+    player_flow.add({
+      type = "drop-down",
+      name = "coe_players_dropdown",
+      items = player_names,
+      selected_index = 1 -- 0?
+    })
+
+    player_flow.add({
+      type = "button",
+      name = "coe_button_player_go",
+      caption = {"coe.button-player-go"}
+    })
+  end -- if
 
   local controls_flow = frame.add({
     type = "flow",
@@ -116,24 +123,55 @@ function build_target_list_frame(gui, good_spawn)
     type = "label",
     name = "coe_note_delay_1",
     caption = {"coe.note-delay-1"}
-  })  
+  })
 
   frame.add({
     type = "label",
     name = "coe_note_delay_2",
     caption = {"coe.note-delay-2"}
-  })  
+  })
 
-  if (good_spawn ~= true) then
+  if (spawn_configured ~= true) then
     frame.add({
       type = "label",
       name = "coe_bad_spawn_1",
       caption = {"coe.bad-spawn-1"}
-    })  
+    })
     frame.add({
       type = "label",
       name = "coe_bad_spawn_2",
       caption = {"coe.bad-spawn-2"}
-    })  
-  end    
-end
+    })
+  end -- if
+end -- BuildTargetListFrame
+
+function CreateShowInfoFrame(player)
+  local gui = player.gui.center
+  if (not gui.coe_frame_show_info) then
+    local info_frame = gui.add({
+      type = "frame",
+      name = "coe_frame_show_info",
+      style = "frame",
+      direction = "vertical",
+      caption = {"coe.title-show-info"}
+    })
+
+    info_frame.add({
+      type = "label",
+      name = "coe_info_text_1",
+      caption = {"coe.info-text-1"}
+    })
+
+    info_frame.add({
+      type = "label",
+      name = "coe_info_text_2",
+      caption = {"coe.info-text-2"}
+    })
+
+    info_frame.add({
+      type = "button",
+      name = "coe_button_info_close",
+      caption = {"coe.button-info-close"}
+    })
+  end -- if
+end -- CreateShowInfoFrame

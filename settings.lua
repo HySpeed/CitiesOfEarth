@@ -60,56 +60,56 @@ data:extend({
   { type = "int-setting",    name = mod .. y .. "M",  setting_type = "runtime-global", default_value =           400, order = "my" },
 --
   { type = "string-setting", name = mod .. n .. "N",  setting_type = "runtime-global", default_value =           "N", order = "nn" },
-  { type = "int-setting",    name = mod .. x .. "N",  setting_type = "runtime-global", default_value =            0, order = "nx" },
-  { type = "int-setting",    name = mod .. y .. "N",  setting_type = "runtime-global", default_value =            0, order = "ny" },
+  { type = "int-setting",    name = mod .. x .. "N",  setting_type = "runtime-global", default_value =             0, order = "nx" },
+  { type = "int-setting",    name = mod .. y .. "N",  setting_type = "runtime-global", default_value =             0, order = "ny" },
 --                                                   
-  { type = "string-setting", name = mod .. n .. "O",  setting_type = "runtime-global", default_value =          "O", order = "on" },
-  { type = "int-setting",    name = mod .. x .. "O",  setting_type = "runtime-global", default_value =            0, order = "ox" },
-  { type = "int-setting",    name = mod .. y .. "O",  setting_type = "runtime-global", default_value =            0, order = "oy" },
+  { type = "string-setting", name = mod .. n .. "O",  setting_type = "runtime-global", default_value =           "O", order = "on" },
+  { type = "int-setting",    name = mod .. x .. "O",  setting_type = "runtime-global", default_value =             0, order = "ox" },
+  { type = "int-setting",    name = mod .. y .. "O",  setting_type = "runtime-global", default_value =             0, order = "oy" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "P",  setting_type = "runtime-global", default_value =          "P", order = "pn" },
-  { type = "int-setting",    name = mod .. x .. "P",  setting_type = "runtime-global", default_value =            0, order = "px" },
-  { type = "int-setting",    name = mod .. y .. "P",  setting_type = "runtime-global", default_value =            0, order = "py" },
+  { type = "string-setting", name = mod .. n .. "P",  setting_type = "runtime-global", default_value =           "P", order = "pn" },
+  { type = "int-setting",    name = mod .. x .. "P",  setting_type = "runtime-global", default_value =             0, order = "px" },
+  { type = "int-setting",    name = mod .. y .. "P",  setting_type = "runtime-global", default_value =             0, order = "py" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "Q",  setting_type = "runtime-global", default_value =          "Q", order = "qn" },
-  { type = "int-setting",    name = mod .. x .. "Q",  setting_type = "runtime-global", default_value =            0, order = "qx" },
-  { type = "int-setting",    name = mod .. y .. "Q",  setting_type = "runtime-global", default_value =            0, order = "qy" },
+  { type = "string-setting", name = mod .. n .. "Q",  setting_type = "runtime-global", default_value =           "Q", order = "qn" },
+  { type = "int-setting",    name = mod .. x .. "Q",  setting_type = "runtime-global", default_value =             0, order = "qx" },
+  { type = "int-setting",    name = mod .. y .. "Q",  setting_type = "runtime-global", default_value =             0, order = "qy" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "R",  setting_type = "runtime-global", default_value =          "R", order = "rn" },
-  { type = "int-setting",    name = mod .. x .. "R",  setting_type = "runtime-global", default_value =            0, order = "rx" },
-  { type = "int-setting",    name = mod .. y .. "R",  setting_type = "runtime-global", default_value =            0, order = "ry" },
+  { type = "string-setting", name = mod .. n .. "R",  setting_type = "runtime-global", default_value =           "R", order = "rn" },
+  { type = "int-setting",    name = mod .. x .. "R",  setting_type = "runtime-global", default_value =             0, order = "rx" },
+  { type = "int-setting",    name = mod .. y .. "R",  setting_type = "runtime-global", default_value =             0, order = "ry" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "S",  setting_type = "runtime-global", default_value =          "S", order = "sn" },
-  { type = "int-setting",    name = mod .. x .. "S",  setting_type = "runtime-global", default_value =            0, order = "sx" },
-  { type = "int-setting",    name = mod .. y .. "S",  setting_type = "runtime-global", default_value =            0, order = "sy" },
+  { type = "string-setting", name = mod .. n .. "S",  setting_type = "runtime-global", default_value =           "S", order = "sn" },
+  { type = "int-setting",    name = mod .. x .. "S",  setting_type = "runtime-global", default_value =             0, order = "sx" },
+  { type = "int-setting",    name = mod .. y .. "S",  setting_type = "runtime-global", default_value =             0, order = "sy" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "T",  setting_type = "runtime-global", default_value =          "T", order = "tn" },
-  { type = "int-setting",    name = mod .. x .. "T",  setting_type = "runtime-global", default_value =            0, order = "tx" },
-  { type = "int-setting",    name = mod .. y .. "T",  setting_type = "runtime-global", default_value =            0, order = "ty" },
+  { type = "string-setting", name = mod .. n .. "T",  setting_type = "runtime-global", default_value =           "T", order = "tn" },
+  { type = "int-setting",    name = mod .. x .. "T",  setting_type = "runtime-global", default_value =             0, order = "tx" },
+  { type = "int-setting",    name = mod .. y .. "T",  setting_type = "runtime-global", default_value =             0, order = "ty" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "U",  setting_type = "runtime-global", default_value =          "U", order = "un" },
-  { type = "int-setting",    name = mod .. x .. "U",  setting_type = "runtime-global", default_value =            0, order = "ux" },
-  { type = "int-setting",    name = mod .. y .. "U",  setting_type = "runtime-global", default_value =            0, order = "uy" },
+  { type = "string-setting", name = mod .. n .. "U",  setting_type = "runtime-global", default_value =           "U", order = "un" },
+  { type = "int-setting",    name = mod .. x .. "U",  setting_type = "runtime-global", default_value =             0, order = "ux" },
+  { type = "int-setting",    name = mod .. y .. "U",  setting_type = "runtime-global", default_value =             0, order = "uy" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "V",  setting_type = "runtime-global", default_value =          "V", order = "vn" },
-  { type = "int-setting",    name = mod .. x .. "V",  setting_type = "runtime-global", default_value =            0, order = "vx" },
-  { type = "int-setting",    name = mod .. y .. "V",  setting_type = "runtime-global", default_value =            0, order = "vy" },
+  { type = "string-setting", name = mod .. n .. "V",  setting_type = "runtime-global", default_value =           "V", order = "vn" },
+  { type = "int-setting",    name = mod .. x .. "V",  setting_type = "runtime-global", default_value =             0, order = "vx" },
+  { type = "int-setting",    name = mod .. y .. "V",  setting_type = "runtime-global", default_value =             0, order = "vy" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "W",  setting_type = "runtime-global", default_value =          "W", order = "wn" },
-  { type = "int-setting",    name = mod .. x .. "W",  setting_type = "runtime-global", default_value =            0, order = "wx" },
-  { type = "int-setting",    name = mod .. y .. "W",  setting_type = "runtime-global", default_value =            0, order = "wy" },
+  { type = "string-setting", name = mod .. n .. "W",  setting_type = "runtime-global", default_value =           "W", order = "wn" },
+  { type = "int-setting",    name = mod .. x .. "W",  setting_type = "runtime-global", default_value =             0, order = "wx" },
+  { type = "int-setting",    name = mod .. y .. "W",  setting_type = "runtime-global", default_value =             0, order = "wy" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "X",  setting_type = "runtime-global", default_value =          "X", order = "xn" },
-  { type = "int-setting",    name = mod .. x .. "X",  setting_type = "runtime-global", default_value =            0, order = "xx" },
-  { type = "int-setting",    name = mod .. y .. "X",  setting_type = "runtime-global", default_value =            0, order = "xy" },
+  { type = "string-setting", name = mod .. n .. "X",  setting_type = "runtime-global", default_value =           "X", order = "xn" },
+  { type = "int-setting",    name = mod .. x .. "X",  setting_type = "runtime-global", default_value =             0, order = "xx" },
+  { type = "int-setting",    name = mod .. y .. "X",  setting_type = "runtime-global", default_value =             0, order = "xy" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "Y",  setting_type = "runtime-global", default_value =          "Y", order = "yn" },
-  { type = "int-setting",    name = mod .. x .. "Y",  setting_type = "runtime-global", default_value =            0, order = "yx" },
-  { type = "int-setting",    name = mod .. y .. "Y",  setting_type = "runtime-global", default_value =            0, order = "yy" },
+  { type = "string-setting", name = mod .. n .. "Y",  setting_type = "runtime-global", default_value =           "Y", order = "yn" },
+  { type = "int-setting",    name = mod .. x .. "Y",  setting_type = "runtime-global", default_value =             0, order = "yx" },
+  { type = "int-setting",    name = mod .. y .. "Y",  setting_type = "runtime-global", default_value =             0, order = "yy" },
 --                                                                                                              
-  { type = "string-setting", name = mod .. n .. "Z",  setting_type = "runtime-global", default_value =          "Z", order = "zn" },
-  { type = "int-setting",    name = mod .. x .. "Z",  setting_type = "runtime-global", default_value =            0, order = "zx" },
-  { type = "int-setting",    name = mod .. y .. "Z",  setting_type = "runtime-global", default_value =            0, order = "zy" }
+  { type = "string-setting", name = mod .. n .. "Z",  setting_type = "runtime-global", default_value =           "Z", order = "zn" },
+  { type = "int-setting",    name = mod .. x .. "Z",  setting_type = "runtime-global", default_value =             0, order = "zx" },
+  { type = "int-setting",    name = mod .. y .. "Z",  setting_type = "runtime-global", default_value =             0, order = "zy" }
 })
 
   

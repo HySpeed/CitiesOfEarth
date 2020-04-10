@@ -2,7 +2,9 @@
 
 -- Credit:
 -- -- Oarc's Multiplayer Spawner
--- -- -- Much of the resource code is based on Oarc's work, and it depends on the Factorio World mod being installed.
+-- -- -- Much of the resource code is based on Oarc's work
+-- -- The Oddlers Factorio World
+-- -- -- this depends on the Factorio Earth (formerly 'factorio world') mod being installed
 -- -- by TheOverwatcher's Team Mod
 -- -- -- The team code and lobby are pulled from this mod.  Many thanks!
 --
@@ -61,7 +63,9 @@ function TeleportToCity(player, city)
 
   CreateWaterStrip(city)
   player.teleport({city.x + GetRandomAmount(TELEPORT_WOBBLE), city.y + GetRandomAmount(TELEPORT_WOBBLE)}, global.surface)
-  player.force = game.forces[city.name]
+  if (global.coe.teams) then
+    player.force = game.forces[city.name]
+  end -- if
 
 end -- TeleportToCity
 

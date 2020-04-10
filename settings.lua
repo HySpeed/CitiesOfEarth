@@ -4,6 +4,9 @@ local x = "x_"
 local y = "y_"
 
 data:extend({
+--
+  { type = "bool-setting",   name = mod .. "teams",   setting_type = "runtime-global", default_value =          true, order = "aa" },
+--
   { type = "int-setting",    name = mod .. "spawn-x", setting_type = "runtime-global", default_value =          2160, order = "ab" },
   { type = "int-setting",    name = mod .. "spawn-y", setting_type = "runtime-global", default_value =           960, order = "ac" },
 --

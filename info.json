@@ -1,11 +1,11 @@
 {
-    "name": "CitiesOfEarth",
-    "version": "0.2.2",
-    "title": "Cities Of Earth",
-    "author": "hyspeed",
-    "contact": "hyspeed_games@yahoo.com",
-    "homepage": "https://github.com/hyspeed/CitiesOfEarth",
-    "factorio_version": "0.17",
-    "dependencies": ["base >= 0.17", "factorio-world >= 0.17.0" ],
-    "description": "This mod presents a list of 'cities' to go to on an Earth map.  Resources are generated at each location.  Each location is a team."
+  "name": "CitiesOfEarth",
+  "version": "0.3.1",
+  "title": "Cities Of Earth",
+  "author": "hyspeed",
+  "contact": "hyspeed_games@yahoo.com",
+  "homepage": "https://github.com/hyspeed/CitiesOfEarth",
+  "description": "This mod presents a list of 'cities' to go to on an Earth map.  Resources are generated at each location.  Each location can be a team.",
+  "factorio_version": "0.18",
+  "dependencies": ["base >= 0.18", "FactorioEarth >= 0.18.0" ]
 }

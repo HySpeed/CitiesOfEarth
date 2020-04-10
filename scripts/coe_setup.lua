@@ -22,6 +22,7 @@ function BuildCities()
 
   local indexes = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"}
   local settings_global = settings.global -- cached for performance
+  global.coe.teams = settings_global["coe_teams"].value
   local city = nil
 
   for _, slot in pairs(indexes) do
@@ -69,22 +70,26 @@ function CreateCity(city)
 end -- CreateCity
 
 function CreateForce(city)
-  game.create_force(city.name)
-  game.forces[city.name].set_spawn_position({ city.x, city.y }, global.surface)
+  if (global.coe.teams) then
+    game.create_force(city.name)
+    game.forces[city.name].set_spawn_position({ city.x, city.y }, global.surface)
+  end -- if
 end -- CreateForce
 
 -- loop through each force, setting cease fire with the others - needs two loops
 function SetCeaseFires()
-  for _, forceOuter in pairs(game.forces) do
-    if ("enemy" ~= forceOuter.name) then 
-      for  _, forceInner in pairs(game.forces) do
-        if ("enemy" ~= forceInner.name) then
-          forceOuter.set_cease_fire(forceInner, true)
-        end -- if
-      end -- for
-    end -- if
-    forceOuter.friendly_fire = false
-  end -- for
+  if (global.coe.teams) then
+    for _, forceOuter in pairs(game.forces) do
+      if ("enemy" ~= forceOuter.name) then 
+        for  _, forceInner in pairs(game.forces) do
+          if ("enemy" ~= forceInner.name) then
+            forceOuter.set_cease_fire(forceInner, true)
+          end -- if
+        end -- for
+      end -- if
+      forceOuter.friendly_fire = false
+    end -- for
+  end -- if
 end -- SetCeaseFires
 
 function GetCityByName(name)
@@ -132,12 +137,12 @@ end -- GetPlayerByName
 function IsValidSpawnSettings()
   local result = false
   local settings_global = settings.global -- cached for performance
-  local fw_spawn_x = settings_global["spawn-x"].value
-  local fw_spawn_y = settings_global["spawn-y"].value
+  local fe_spawn_x = settings_global["spawn-x"].value
+  local fe_spawn_y = settings_global["spawn-y"].value
   local coe_spawn_x = settings_global["coe_spawn-x"].value
   local coe_spawn_y = settings_global["coe_spawn-y"].value
 
-  if (fw_spawn_x == coe_spawn_x and fw_spawn_y == coe_spawn_y) then
+  if (fe_spawn_x == coe_spawn_x and fe_spawn_y == coe_spawn_y) then
     result = true
   end
   return result

@@ -7,6 +7,7 @@ This mod requires Factorio Earth (v0.18+) and that the initial spawn point be in
 
 ## Map Sizes
 In order to prevent the map from wrapping, these are some world size limitations to use:
+
 | Size | Scale  | Max X | Max Y | 
 |-----:|:------:|------:|------:| 
 |   1  | normal |  4000 |  1900 |
@@ -65,12 +66,15 @@ Region / City information was pulled from [Mapcarta](https://mapcarta.com/).
 ## Known Issues:
 * **You must delete mod-settings.dat for city changes to appear.**
 
+v0.3.3
+* Changed UI on_click to resolve bug.
+
 v0.3.2
 * Adjusted cities - now at 26 cities with world-wide coverage.
 * **You must delete mod-settings.dat for city changes to appear.**
   
 v0.3.1
-* Teams can be toggled in map setup (enable / disable)
+* Teams can be toggled in map setup (enable / disable).
 
 v0.3.0
 * Updated to Factorio 0.18

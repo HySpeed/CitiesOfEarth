@@ -3,21 +3,22 @@
 function OnGuiClick(event)
   local player  = game.players[event.player_index]
   local element = event.element
-  local frame   = element.parent
-  local dialog  = element.parent.parent
+  -- causing issues with spawning, need different component selection method
+  -- local frame   = element.parent
+  -- local dialog  = element.parent.parent
 
   if (element.name == "coe_button_show_targets" ) then
     ShowTargetChoices(event, player)
   elseif (element.name == "coe_button_city_go") then
-    SelectCity(player, frame)
-    dialog.parent.destroy()
+    SelectCity(player, element.parent)
+    element.parent.parent.parent.destroy()
   elseif (element.name == "coe_button_player_go") then
-    SelectPlayer(player, frame)
-    dialog.parent.destroy()
+    SelectPlayer(player, element.parent)
+    element.parent.parent.parent.destroy()
   elseif (element.name == "coe_button_cancel") then
-    dialog.destroy()
+    element.parent.parent.destroy()
   elseif (element.name == "coe_button_info_close") then
-    frame.destroy()
+    element.parent.destroy()
   end
 end -- OnGuiClick
 

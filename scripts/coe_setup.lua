@@ -149,5 +149,5 @@ function IsValidSpawnSettings()
 end -- ValidSpawnSettings
 
 function MakeLobby()
-	game.create_surface("Lobby", { width = 96, height = 32, starting_area = "big", water = "none" })
+	game.create_surface(LOBBY_NAME, { width = 96, height = 32, starting_area = "big", water = "none" })
 end -- MakeLobby

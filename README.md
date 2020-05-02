@@ -66,6 +66,9 @@ Region / City information was pulled from [Mapcarta](https://mapcarta.com/).
 ## Known Issues:
 * **You must delete mod-settings.dat for city changes to appear.**
 
+v0.3.4
+* Changed Lobby name to prevent conflicts.
+
 v0.3.3
 * Changed UI on_click to resolve bug.
 

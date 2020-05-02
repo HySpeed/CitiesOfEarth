@@ -26,7 +26,7 @@ function OnPlayerCreated(event)
   local player = game.players[event.player_index]
   CreateButton_ShowTargets(player)
   CreateShowInfoFrame(player)
-  player.teleport({ 0, 8 }, game.surfaces["Lobby"])
+  player.teleport({ 0, 8 }, game.surfaces[LOBBY_NAME])
 end -- OnPlayer_JoinedGame
 
 function CreateButton_ShowTargets(player)

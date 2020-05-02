@@ -2,13 +2,17 @@
 -- Configuration Options
 
 ---------------------------------------
+-- Cities of Earth Options
+---------------------------------------
+TELEPORT_WOBBLE = 4 -- a small amount of variance for teleport
+LOBBY_NAME = "CoE_Lobby"
+
+---------------------------------------
 -- Resource & Spawn Circle Options
 ---------------------------------------
-
 CHART_AREA = 200
 CHUNK_SIZE = 32
 ENFORCE_LAND_AREA_TILE_DIST = CHUNK_SIZE * 4
-TELEPORT_WOBBLE = 4 -- a small amount of variance for teleport
 
 -- Start resource amounts (per tile/oil spot)
 START_COAL_AMOUNT    = 3000
@@ -66,7 +70,6 @@ START_RESOURCE_OIL_Y_OFFSET =  0
 ---------------------------------------
 -- Safe Spawn Area Options
 ---------------------------------------
-
 -- Safe area has no aliens
 SAFE_AREA_SIZE = CHUNK_SIZE * 20
 

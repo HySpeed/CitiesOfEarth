@@ -68,7 +68,12 @@ Region / City information was pulled from [Mapcarta](https://mapcarta.com/).
 ## Known Issues:
 * **You must delete mod-settings.dat for city changes to appear.**
 
+v0.3.8
+
+* Fixed serialization bug
+
 v0.3.7
+
 * Fixed typo in globals
 
 v0.3.6

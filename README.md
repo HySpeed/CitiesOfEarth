@@ -2,7 +2,7 @@
 A Factorio mod that adds a city areas list to Factorio Earth
 
 ## Requirements
-This mod requires Factorio Earth (v0.18+) and that the initial spawn point be in west Africa.  The city locations are based on a 0,0 point of 2160, 960.
+This mod requires Factorio Earth (v0.18+) and that the initial spawn point be in central Africa.  The city locations are based on a 0,0 point of 2160, 960.
 **When first starting a new game, there will be a long delay while all cities are initialized.**
 
 ## Map Sizes
@@ -58,13 +58,20 @@ Adjusting the spawn anywhere else cuts the other side of the world. Doing any pa
 | United States   | Nome         | -1700 |  -700 |
 
 Note: Enabling 'Large' map multiplies all values by 2.  This increases the detail of the base map.    
+
 Region / City information was pulled from [Mapcarta](https://mapcarta.com/).
+
 
 ## To Do:
 * none
 
 ## Known Issues:
 * **You must delete mod-settings.dat for city changes to appear.**
+
+v0.3.6
+* Check for 'nauvis' fix.
+* Added concrete to spawn area to mark where a player may teleport into.
+* Added option to not create starter resources at city.
 
 v0.3.5
 * Lobby Check Fix.
@@ -121,7 +128,7 @@ v0.1.3
 v0.1.2
 * Added control button to open city list
 * (no longer opens city list automatically at spawn / join)
-* Build city list from mod settings.lua
+* Build city list from settings.lua
 * Added city list to settings.lua
 * Changed teleport to use {} (absolute vs relative)
 * Added icon for control button

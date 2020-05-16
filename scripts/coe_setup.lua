@@ -1,28 +1,13 @@
 --coe_setup.lua
 
---Teleport to these major city areas (FOR SCALE 1 - normal map)
---Lagos            0,      0 (must spawn at: 2160, 960)
---Beijing       1150,   -430
---Cairo          190,   -290
---Delhi          720,   -300
---Edmonton     -1500,   -650
---Los Angeles  -1500,   -450
---Omsk          1000,   -700
---Mexico City  -1280,   -220
---Moscow         330,   -650
---New York     -1050,   -400
---Paris         -100,   -500
---Sao Paulo     -650,    180
---Sydney        1500,    400
-
 function BuildCities()
   global.surface = game.surfaces["nauvis"]
   global.coe = {["cities"] = {}, ["players"] = {}}
   -- game.write_file("coe.log", "") -- creates empty log file
 
   local indexes = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"}
-  local settings_global = settings.global -- cached for performance
   global.coe.teams = settings_global["coe_teams"].value
+  global.coe.create = settings_global["coe_create"].value
   local city = nil
 
   for _, slot in pairs(indexes) do
@@ -56,21 +41,23 @@ function ReadCityFromSettings(settings_global, slot)
 end -- ReadCity
 
 function CreateCity(city)
-  local scale = settings.global["map-gen-scale"].value
-  local use_large_map = settings.global["use-large-map"].value
-  local large = 1
-  if (use_large_map) then
-    large = 2
+  local scale = settings_global["map-gen-scale"].value
+  local use_large_map = settings_global["use-large-map"].value
+  local large_map = 1
+
+  if use_large_map then
+    large_map = 2
   end
-  city.x = city.x * scale * large
-  city.y = city.y * scale * large
+
+  city.x = city.x * scale * large_map
+  city.y = city.y * scale * large_map
   city.position = {x = city.x, y = city.y}
-  city.water = false
+  city.tiles = false
   return city
 end -- CreateCity
 
 function CreateForce(city)
-  if (global.coe.teams) then
+  if global.coe.teams then
     game.create_force(city.name)
     game.forces[city.name].set_spawn_position({ city.x, city.y }, global.surface)
   end -- if
@@ -78,11 +65,11 @@ end -- CreateForce
 
 -- loop through each force, setting cease fire with the others - needs two loops
 function SetCeaseFires()
-  if (global.coe.teams) then
+  if global.coe.teams then
     for _, forceOuter in pairs(game.forces) do
-      if ("enemy" ~= forceOuter.name) then 
+      if "enemy" ~= forceOuter.name then 
         for  _, forceInner in pairs(game.forces) do
-          if ("enemy" ~= forceInner.name) then
+          if "enemy" ~= forceInner.name then
             forceOuter.set_cease_fire(forceInner, true)
           end -- if
         end -- for
@@ -94,7 +81,7 @@ end -- SetCeaseFires
 
 function GetCityByName(name)
   for _, city in pairs(global.coe.cities) do
-    if (city.name == name) then
+    if city.name == name then
       return city
     end
   end
@@ -126,7 +113,7 @@ end -- BuildPlayerList
 
 function GetPlayerByName(name)
   for _, player in pairs(global.coe.players) do
-    if (player.name == name) then
+    if player.name == name then
       return player
     end
   end
@@ -136,7 +123,6 @@ end -- GetPlayerByName
 -- They need to match for the teleporting to be accurate.
 function IsValidSpawnSettings()
   local result = false
-  local settings_global = settings.global -- cached for performance
   local fe_spawn_x = settings_global["spawn-x"].value
   local fe_spawn_y = settings_global["spawn-y"].value
   local coe_spawn_x = settings_global["coe_spawn-x"].value
@@ -146,7 +132,7 @@ function IsValidSpawnSettings()
     result = true
   end
   return result
-end -- ValidSpawnSettings
+end -- IsValidSpawnSettings
 
 function MakeLobby()
   if (game.surfaces[LOBBY_NAME] == nil) then

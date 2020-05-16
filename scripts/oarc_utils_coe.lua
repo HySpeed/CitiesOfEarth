@@ -18,42 +18,39 @@ function GenerateStartingResources(city)
   RemoveByTypesInCircle(area, city, ENFORCE_LAND_AREA_TILE_DIST + 10)
   RemoveDecorationsArea(area)
 
-  -- Generate oil patches
-  local pos_x=city.x+START_RESOURCE_OIL_POS_X
-  local pos_y=city.y+START_RESOURCE_OIL_POS_Y
-  GenerateOilPatch("crude-oil", pos_x, pos_y, START_OIL_AMOUNT)
+  if global.coe.create then
+    -- Generate oil patches
+    local pos_x=city.x+START_RESOURCE_OIL_POS_X
+    local pos_y=city.y+START_RESOURCE_OIL_POS_Y
+    GenerateOilPatch("crude-oil", pos_x, pos_y, START_OIL_AMOUNT)
 
-  local resourcePos
-  -- Generate stone
-  resourcePos = {x=city.x+START_RESOURCE_STONE_POS_X, y=city.y+START_RESOURCE_STONE_POS_Y}
-  GenerateResourcePatch("stone", START_RESOURCE_STONE_SIZE, resourcePos, START_STONE_AMOUNT)
+    local resourcePos
+    -- Generate stone
+    resourcePos = {x=city.x+START_RESOURCE_STONE_POS_X, y=city.y+START_RESOURCE_STONE_POS_Y}
+    GenerateResourcePatch("stone", START_RESOURCE_STONE_SIZE, resourcePos, START_STONE_AMOUNT)
 
-  -- Generate coal
-  resourcePos = {x=city.x+START_RESOURCE_COAL_POS_X, y=city.y+START_RESOURCE_COAL_POS_Y}
-  GenerateResourcePatch("coal", START_RESOURCE_COAL_SIZE, resourcePos, START_COAL_AMOUNT)
+    -- Generate coal
+    resourcePos = {x=city.x+START_RESOURCE_COAL_POS_X, y=city.y+START_RESOURCE_COAL_POS_Y}
+    GenerateResourcePatch("coal", START_RESOURCE_COAL_SIZE, resourcePos, START_COAL_AMOUNT)
 
-  -- Generate copper ore
-  resourcePos = {x=city.x+START_RESOURCE_COPPER_POS_X, y=city.y+START_RESOURCE_COPPER_POS_Y}
-  GenerateResourcePatch("copper-ore", START_RESOURCE_COPPER_SIZE, resourcePos, START_COPPER_AMOUNT)
+    -- Generate copper ore
+    resourcePos = {x=city.x+START_RESOURCE_COPPER_POS_X, y=city.y+START_RESOURCE_COPPER_POS_Y}
+    GenerateResourcePatch("copper-ore", START_RESOURCE_COPPER_SIZE, resourcePos, START_COPPER_AMOUNT)
 
-  -- Generate iron ore
-  resourcePos = {x=city.x+START_RESOURCE_IRON_POS_X, y=city.y+START_RESOURCE_IRON_POS_Y}
-  GenerateResourcePatch("iron-ore", START_RESOURCE_IRON_SIZE, resourcePos, START_IRON_AMOUNT)
+    -- Generate iron ore
+    resourcePos = {x=city.x+START_RESOURCE_IRON_POS_X, y=city.y+START_RESOURCE_IRON_POS_Y}
+    GenerateResourcePatch("iron-ore", START_RESOURCE_IRON_SIZE, resourcePos, START_IRON_AMOUNT)
 
-  -- Generate uranium
-  resourcePos = {x=city.x+START_RESOURCE_URANIUM_POS_X, y=city.y+START_RESOURCE_URANIUM_POS_Y}
-  GenerateResourcePatch("uranium-ore", START_RESOURCE_URANIUM_SIZE, resourcePos, START_URANIUM_AMOUNT)
+    -- Generate uranium
+    resourcePos = {x=city.x+START_RESOURCE_URANIUM_POS_X, y=city.y+START_RESOURCE_URANIUM_POS_Y}
+    GenerateResourcePatch("uranium-ore", START_RESOURCE_URANIUM_SIZE, resourcePos, START_URANIUM_AMOUNT)
 
-  -- Tree generation is needed
-  resourcePos = {x=city.x+START_RESOURCE_TREE_POS_X, y=city.y+START_RESOURCE_TREE_POS_Y}
-  GenerateResourcePatch("tree-02", START_RESOURCE_TREE_SIZE, resourcePos, START_TREE_AMOUNT)
-  city.resources_generated = true -- mark resources as generated
-
-  -- Generate Water
-  -- moved to teleport because water doesn't persist if generated here.
---  CreateWaterStrip({x=city.x+WATER_SPAWN_OFFSET_X, y=city.y+WATER_SPAWN_OFFSET_Y}, WATER_SPAWN_LENGTH, WATER_SPAWN_WIDTH)
-
-end
+    -- Tree generation is needed
+    resourcePos = {x=city.x+START_RESOURCE_TREE_POS_X, y=city.y+START_RESOURCE_TREE_POS_Y}
+    GenerateResourcePatch("tree-02", START_RESOURCE_TREE_SIZE, resourcePos, START_TREE_AMOUNT)
+    city.resources_generated = true -- mark resources as generated
+  end
+end -- GenerateStartingResources
 
 -- Removes the entity types from the area given
 -- Only if it is within given distance from given position.
@@ -72,8 +69,8 @@ function GenerateOilPatch(resourceName, pos_x, pos_y, amount)
   if game.entity_prototypes[resourceName] then
     for i=1,START_RESOURCE_OIL_NUM_PATCHES do
       global.surface.create_entity({name=resourceName, amount=amount, position={pos_x, pos_y}})
-      pos_x = pos_x+START_RESOURCE_OIL_X_OFFSET
-      pos_y = pos_y+START_RESOURCE_OIL_Y_OFFSET
+      pos_x = pos_x+START_RESOURCE_OIL_DISTANCE_X
+      pos_y = pos_y+START_RESOURCE_OIL_DISTANCE_Y
     end
   end
 end
@@ -82,7 +79,7 @@ end
 function GenerateResourcePatch(resourceName, diameter, pos, amount)
   if game.entity_prototypes[resourceName] then
     local midPoint = math.floor(diameter/2)
-    if (diameter > 0) then
+    if diameter > 0 then
       for y=0, diameter do
         for x=0, diameter do
           if (not ENABLE_RESOURCE_SHAPE_CIRCLE or ((x-midPoint)^2 + (y-midPoint)^2 < midPoint^2)) then
@@ -94,35 +91,40 @@ function GenerateResourcePatch(resourceName, diameter, pos, amount)
   end
 end
 
--- Create a horizontal line of water - requires building a table of the positions, then calling set_tiles
-function CreateWaterStrip(city)
-  if (not city.water) then
-    local waterTiles = {}
-    for index_width = 0, WATER_SPAWN_WIDTH, 1 do
-      for index_length = 0, WATER_SPAWN_LENGTH, 1 do
-        table.insert(waterTiles, {name = "water", position={city.x+WATER_SPAWN_OFFSET_X+index_length, city.y+WATER_SPAWN_OFFSET_Y+index_width}})
-      end
+-- Create city tiles:
+-- - Water at spawn
+-- - Cement at spawn
+function CreateCityTiles(city)
+  if not city.tiles and global.surface.name == "nauvis" then
+    if global.coe.create then
+      CreateSurfaceTiles(city.x, city.y, WATER_NAME, WATER_SPAWN_OFFSET_X, WATER_SPAWN_OFFSET_Y, WATER_SPAWN_DISTANCE_X, WATER_SPAWN_DISTANCE_Y)
     end
-    global.surface.set_tiles(waterTiles)
-    city.water = true
+    CreateSurfaceTiles(city.x, city.y, CONCRETE_NAME, CONCRETE_SPAWN_OFFSET_X, CONCRETE_SPAWN_OFFSET_Y, CONCRETE_SPAWN_DISTANCE_X, CONCRETE_SPAWN_DISTANCE_Y)
+    city.tiles = true
   end
-end
+end -- CreateCityTiles
 
--- /c   local waterTiles = {}   for w = 0, 14, 1 do     for l = 0, 4, 1 do       
---   table.insert(waterTiles, {name = "water", position={-6+w,-30+l}})     end   end     game.surfaces[1].set_tiles(waterTiles)  game.print(serpent.block(waterTiles))
-
+-- Create Surface Tiles - put desired tiles in a table, then set those on the surface.
+function CreateSurfaceTiles(pos_x, pos_y, tileName, offset_x, offset_y, distance_x, distance_y)
+  local tiles = {}
+  for index_x = 0, distance_x, 1 do
+    for index_y = 0, distance_y, 1 do
+      table.insert( tiles, {name=tileName, position={(pos_x + offset_x + index_x), (pos_y + offset_y + index_y)}})
+    end -- for y
+  end -- for x
+  global.surface.set_tiles(tiles)
+end -- CreateSurfaceTiles
 
 function RemoveDecorationsArea(area)
   global.surface.destroy_decoratives(area)
 end
 
+
 ---------
 -- Aliens
 ---------
-
 function RemoveAliens(city)
   local safeArea = {{city.x - SAFE_AREA_SIZE, city.y - SAFE_AREA_SIZE}, {city.x + SAFE_AREA_SIZE, city.y + SAFE_AREA_SIZE}}
-  local warnArea = {{city.x - WARN_AREA_SIZE, city.y - WARN_AREA_SIZE}, {city.x + WARN_AREA_SIZE, city.y + WARN_AREA_SIZE}}
   local wormArea = {{city.x - NO_LARGE_WORMS_SIZE, city.y - NO_LARGE_WORMS_SIZE}, {city.x + NO_LARGE_WORMS_SIZE, city.y + NO_LARGE_WORMS_SIZE}}
 
   RemoveAliensInArea(safeArea)
@@ -142,7 +144,7 @@ end
 function ReduceAliensInArea(area)
   for _, entity in pairs(global.surface.find_entities_filtered{area = area, force = "enemy"}) do
     local rand = math.random(1,REDUCTION_FACTOR) -- disabled because it would sometimes return 'nil'
-    if (rand > 1) then
+    if rand > 1 then
       game.print("*reducing: " .. entity.name)
       entity.destroy()
     end
@@ -152,7 +154,7 @@ end
 
 -- Replace larger worms in area with small ones
 function ReplaceLargerWormsInArea(area)
-  -- Remove all larget+ worms
+  -- Remove all large+ worms
   for _, entity in pairs(global.surface.find_entities_filtered{area = area, name = {"medium-worm-turret", "big-worm-turret", "behemoth-worm-turret"}}) do
     local position = entity.position;
     entity.destroy()

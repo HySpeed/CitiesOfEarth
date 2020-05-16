@@ -23,6 +23,7 @@ script.on_event(defines.events.on_chunk_generated, function(event) OnChunkGenera
 
 
 function OnInit()
+  settings_global = settings.global -- cached for performance
   MakeLobby()
   if not global.coe then
     BuildCities()
@@ -35,8 +36,7 @@ function SelectCity(player, frame)
   local city = GetCityByName(name)
 
   game.print({"", player.name, ": ", city.name, "(", city.x, ",", city.y, ")"})
-  if (city.resources_generated == nil) then -- only gen resources if they haven't been
-    ChartCityArea(player, city)
+  if (city.resources_generated == nil) then -- only chart if they haven't been
     player.force.chart(global.surface, {{city.x - CHART_AREA, city.y - CHART_AREA}, {city.x + CHART_AREA, city.y + CHART_AREA}})
   end -- if
 
@@ -53,17 +53,14 @@ function SelectPlayer(player, frame)
   player.teleport({destination.x + GetRandomAmount(TELEPORT_WOBBLE), destination.y + GetRandomAmount(TELEPORT_WOBBLE)}, global.surface)
 end -- SelectPlayer
 
-function ChartCityArea(player, city)
-  player.force.chart(global.surface, {{city.x - CHART_AREA, city.y - CHART_AREA}, {city.x + CHART_AREA, city.y + CHART_AREA}})
-end -- ChartAndGenerateArea
-
 function TeleportToCity(player, city)
   RemoveAliens(city)
-  -- workaround because water won't persist when created earlier
 
-  CreateWaterStrip(city)
+  -- workaround because water won't persist when created earlier
+  CreateCityTiles(city) -- ? can this be moved to OnChunkGenerated?
+
   player.teleport({city.x + GetRandomAmount(TELEPORT_WOBBLE), city.y + GetRandomAmount(TELEPORT_WOBBLE)}, global.surface)
-  if (global.coe.teams) then
+  if global.coe.teams then
     player.force = game.forces[city.name]
   end -- if
 
@@ -76,13 +73,10 @@ function OnChunkGenerated(event)
     local chunk_position = {x = (event.position.x * CHUNK_SIZE), y = (event.position.y * CHUNK_SIZE)}
     local distance = CalculateDistance(chunk_position, city.position)
     -- game.print({"", chunk_position, " : ", city.position, " - ", distance})
-    if (distance < SAFE_AREA_SIZE ) then
+    if distance < SAFE_AREA_SIZE  then
       RemoveAliensInArea(event.area)
     end
-    -- if (distance < WARN_AREA_SIZE ) then
-    --   ReduceAliensInArea(event.area)
-    -- end
-    if (distance < NO_LARGE_WORMS_SIZE ) then
+    if distance < NO_LARGE_WORMS_SIZE then
       ReplaceLargerWormsInArea(event.area)
     end
   end

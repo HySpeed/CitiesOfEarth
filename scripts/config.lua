@@ -27,12 +27,6 @@ START_OIL_AMOUNT     = 500000
 ENABLE_RESOURCE_SHAPE_CIRCLE = true
 
 -- Position is relative to provided location
--- Location of water strip (horizontal)
-WATER_SPAWN_OFFSET_X =  -6
-WATER_SPAWN_OFFSET_Y = -30
-WATER_SPAWN_LENGTH   =   14
-WATER_SPAWN_WIDTH    =   4
-
 START_RESOURCE_STONE_POS_X = -27
 START_RESOURCE_STONE_POS_Y = -30
 START_RESOURCE_STONE_SIZE  =  12
@@ -64,17 +58,29 @@ START_RESOURCE_OIL_POS_X =  5
 START_RESOURCE_OIL_POS_Y = 20
 -- How far each patch is offset from the others and in which direction
 -- Default (x=-4, y=0) builds a horizontal row.
-START_RESOURCE_OIL_X_OFFSET = -4
-START_RESOURCE_OIL_Y_OFFSET =  0
+START_RESOURCE_OIL_DISTANCE_X = -4
+START_RESOURCE_OIL_DISTANCE_Y =  0
+
+-- Location & size of water strip (horizontal)
+WATER_NAME = "water"
+WATER_SPAWN_OFFSET_X   =  -6
+WATER_SPAWN_OFFSET_Y   = -30
+WATER_SPAWN_DISTANCE_X =  14
+WATER_SPAWN_DISTANCE_Y =   4
+
+-- Defines an area of concrete where a player will teleport to
+CONCRETE_NAME = "concrete"
+CONCRETE_SPAWN_OFFSET_X   = -TELEPORT_WOBBLE
+CONCRETE_SPAWN_OFFSET_Y   = -TELEPORT_WOBBLE
+CONCRETE_SPAWN_DISTANCE_X =  TELEPORT_WOBBLE * 2
+CONCRETE_SPAWN_DISTANCE_Y =  TELEPORT_WOBBLE * 2
+
 
 ---------------------------------------
 -- Safe Spawn Area Options
 ---------------------------------------
 -- Safe area has no aliens
 SAFE_AREA_SIZE = CHUNK_SIZE * 20
-
--- Warning area has reduced aliens
-WARN_AREA_SIZE = CHUNK_SIZE * 20
 
 -- No large worms area
 NO_LARGE_WORMS_RADIUS = 40

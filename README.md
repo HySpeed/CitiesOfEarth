@@ -68,8 +68,10 @@ Region / City information was pulled from [Mapcarta](https://mapcarta.com/).
 ## Known Issues:
 * **You must delete mod-settings.dat for city changes to appear.**
 
+v0.3.7
+* Fixed typo in globals
+
 v0.3.6
-* Check for 'nauvis' fix.
 * Added concrete to spawn area to mark where a player may teleport into.
 * Added option to not create starter resources at city.
 

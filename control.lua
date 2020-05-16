@@ -21,8 +21,6 @@ script.on_event(defines.events.on_gui_click,       function(event) OnGuiClick(ev
 script.on_event(defines.events.on_player_created,  function(event) OnPlayerCreated(event) end)
 script.on_event(defines.events.on_chunk_generated, function(event) OnChunkGenerated(event) end)
 
-settings_global = settings.global -- cached for performance
-
 function OnInit()
   MakeLobby()
   if not global.coe then
@@ -36,7 +34,7 @@ function SelectCity(player, frame)
   local city = GetCityByName(name)
 
   game.print({"", player.name, ": ", city.name, "(", city.x, ",", city.y, ")"})
-  if (city.resources_generated == nil) then -- only chart if they haven't been
+  if city.resources_generated == nil then -- only chart if they haven't been
     player.force.chart(global.surface, {{city.x - CHART_AREA, city.y - CHART_AREA}, {city.x + CHART_AREA, city.y + CHART_AREA}})
   end -- if
 

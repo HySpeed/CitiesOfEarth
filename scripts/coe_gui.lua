@@ -7,17 +7,17 @@ function OnGuiClick(event)
   -- local frame   = element.parent
   -- local dialog  = element.parent.parent
 
-  if (element.name == "coe_button_show_targets" ) then
+  if element.name == "coe_button_show_targets" then
     ShowTargetChoices(event, player)
-  elseif (element.name == "coe_button_city_go") then
+  elseif element.name == "coe_button_city_go" then
     SelectCity(player, element.parent)
     element.parent.parent.parent.destroy()
-  elseif (element.name == "coe_button_player_go") then
+  elseif element.name == "coe_button_player_go" then
     SelectPlayer(player, element.parent)
     element.parent.parent.parent.destroy()
-  elseif (element.name == "coe_button_cancel") then
+  elseif element.name == "coe_button_cancel" then
     element.parent.parent.destroy()
-  elseif (element.name == "coe_button_info_close") then
+  elseif element.name == "coe_button_info_close" then
     element.parent.destroy()
   end
 end -- OnGuiClick
@@ -31,7 +31,7 @@ end -- OnPlayer_JoinedGame
 
 function CreateButton_ShowTargets(player)
   local flow = mod_gui.get_button_flow(player)
-  if (not flow.coe_button_show_targets) then
+  if not flow.coe_button_show_targets then
     local button = flow.add({
       type = "sprite-button",
       name = "coe_button_show_targets",
@@ -44,7 +44,7 @@ end -- CreateButton_ShowTargets
 
 function ShowTargetChoices(event, player)
   local gui = player.gui.center
-  if (gui.coe_choose_target == nil) then
+  if gui.coe_choose_target == nil then
     local spawn_configured = IsValidSpawnSettings() -- error is displayed if setup is wrong
     BuildTargetListFrame(gui, player, spawn_configured)
   end -- if
@@ -92,7 +92,7 @@ function BuildTargetListFrame(gui, player, spawn_configured)
   })
 
   -- only show player list if not in 'lobby'
-  if (player.surface == global.surface) then
+  if player.surface == global.surface then
     local player_names = BuildPlayerNameList()
     player_flow.add({
       type = "drop-down",
@@ -132,7 +132,7 @@ function BuildTargetListFrame(gui, player, spawn_configured)
     caption = {"coe.note-delay-2"}
   })
 
-  if (spawn_configured ~= true) then
+  if spawn_configured ~= true then
     frame.add({
       type = "label",
       name = "coe_bad_spawn_1",
@@ -148,7 +148,7 @@ end -- BuildTargetListFrame
 
 function CreateShowInfoFrame(player)
   local gui = player.gui.center
-  if (not gui.coe_frame_show_info) then
+  if not gui.coe_frame_show_info then
     local info_frame = gui.add({
       type = "frame",
       name = "coe_frame_show_info",

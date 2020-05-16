@@ -21,9 +21,9 @@ script.on_event(defines.events.on_gui_click,       function(event) OnGuiClick(ev
 script.on_event(defines.events.on_player_created,  function(event) OnPlayerCreated(event) end)
 script.on_event(defines.events.on_chunk_generated, function(event) OnChunkGenerated(event) end)
 
+settings_global = settings.global -- cached for performance
 
 function OnInit()
-  settings_global = settings.global -- cached for performance
   MakeLobby()
   if not global.coe then
     BuildCities()

@@ -95,7 +95,7 @@ end
 -- - Water at spawn
 -- - Cement at spawn
 function CreateCityTiles(city)
-  if not city.tiles and global.surface.name == "nauvis" then
+  if not city.tiles then
     if global.coe.create then
       CreateSurfaceTiles(city.x, city.y, WATER_NAME, WATER_SPAWN_OFFSET_X, WATER_SPAWN_OFFSET_Y, WATER_SPAWN_DISTANCE_X, WATER_SPAWN_DISTANCE_Y)
     end

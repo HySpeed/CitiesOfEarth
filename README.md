@@ -68,6 +68,10 @@ Region / City information was pulled from [Mapcarta](https://mapcarta.com/).
 ## Known Issues:
 * **You must delete mod-settings.dat for city changes to appear.**
 
+v0.5.0
+
+* Updated to Factorio 1.1
+
 v0.3.8
 
 * Fixed serialization bug

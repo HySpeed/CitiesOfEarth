@@ -10,7 +10,7 @@
 --
 -- Feel free to re-use anything you want. It would be nice to give me credit if you can.
 
-require("mod-gui")
+mod_gui = require("mod-gui")
 require("scripts/config")
 require("scripts/coe_gui")
 require("scripts/coe_setup")
